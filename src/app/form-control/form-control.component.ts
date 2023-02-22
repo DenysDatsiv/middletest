@@ -34,9 +34,8 @@ export class FormControlComponent implements OnInit {
 
   onSubmit() {
     const valueFromInput = this.userRegistrationForm.value;
-    const emailExisting = this.formData.some((item) => item.email == this.userRegistrationForm.value.email)
-    this.emailExisting = emailExisting
-    if (!emailExisting) {
+    this.emailExisting = this.formData.some((item) => item.email == this.userRegistrationForm.value.email)
+    if (!this.emailExisting) {
       this.formData.unshift(valueFromInput)
       localStorage.setItem("formData", JSON.stringify(this.formData));
     }
