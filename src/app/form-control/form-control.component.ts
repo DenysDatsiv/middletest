@@ -17,7 +17,6 @@ export class FormControlComponent implements OnInit {
 
   ngOnInit(): void {
     this.userRegistrationForm = new FormGroup({
-
       'username': new FormControl("", [
         Validators.required,
         this.validationService.firstLetterCapital,
@@ -28,7 +27,6 @@ export class FormControlComponent implements OnInit {
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")
       ])
-
     });
   }
 
