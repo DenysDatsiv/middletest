@@ -1,0 +1,37 @@
+<ul class="list-group">
+    <li class="list-group-item disabled">
+        <p>Output Result</p>
+        <input type="text" class="form-control" placeholder="Searching" [(ngModel)]="searchedData">
+    </li>
+    <li class="item-list-element" *ngFor="let userData of formData | search:searchedData; let i = index">
+
+        <div class="list-group-item" *ngIf="i !== editIndex">
+            <div>
+                <p> Username : {{userData.username}}</p>
+                <p> Email : {{userData.email}}</p>
+            </div>
+            <div>
+                <button type="button" class="btn btn-success result-control-btn" (click)="onEdit(i)">Edit</button>
+                <button type="button" class="btn btn-danger result-control-btn" (click)="onDelete(i)">Delete</button>
+            </div>
+        </div>
+
+        <div class="list-group-item" *ngIf="i === editIndex">
+            <div class="edit-input-container ">
+                <div>
+                    <label for="username">Username</label>
+                    <input id="username" type="text" class="form-control" [(ngModel)]="editUserData.username">
+                </div>
+            </div>
+            <div>
+                <label for="username">Email</label>
+                <input type="text" class="form-control" [(ngModel)]="editUserData.email">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success result-control-btn" (click)="onSave(i)">Save</button>
+                <button type="button" class="btn btn-danger result-control-btn" (click)="onReturn()">Cancel</button>
+            </div>
+        </div>
+
+    </li>
+</ul>
