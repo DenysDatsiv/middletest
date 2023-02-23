@@ -15,6 +15,7 @@ export class ResultComponent implements OnInit {
   userEditForm: FormGroup;
   searchedData: string;
   editIndex: number = -1;
+  emailExisting: boolean;
   editUserData: PersonData;
 
   constructor(private arrayCheckingService: ArrayCheckingService, private validationService: ValidationService) { }
@@ -56,6 +57,8 @@ export class ResultComponent implements OnInit {
   }
 
   onSave(index: number) {
+    this.emailExisting= this.formData.some((item) => item.email == this.userEditForm.value.email)
+    if (!this.emailExisting) {
     const editedData: PersonData = {
       username: this.userEditForm.value.username,
       email: this.userEditForm.value.email
@@ -64,5 +67,6 @@ export class ResultComponent implements OnInit {
     this.onReturn();
     localStorage.setItem("formData", JSON.stringify(this.formData));
   }
+}
 
 }
