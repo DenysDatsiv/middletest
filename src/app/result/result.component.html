@@ -5,7 +5,7 @@
     </div>
     <div class="no-element-message">
         <p *ngIf="(formData | search:searchedData).length === 0  && !emptyMessageStatus ">No elements Found!</p>
-        <p *ngIf="(formData).length === 0 ">Please add some elements!</p>
+        <p *ngIf="(formData).length === 0 ">Please some elements!</p>
     </div>
     <div *ngFor="let userData of formData | search:searchedData; let i = index">
 
