@@ -1,17 +1,16 @@
 <div class="container">
-    <div class="col-xs-12">
+    <div class="col-xs-12 ">
         <div *ngIf="emailExisting">
             <p class="alert alert-danger">Email already Exist!</p>
         </div>
-        <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()" class="main-container form-group">
-
-            <div class="form-group">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input id="username" class="form-control" type="text" formControlName="username">
-                    <div *ngIf="userRegistrationForm.get('username').invalid &&
-                                (userRegistrationForm.get('username').touched || 
-                                 userRegistrationForm.get('username').dirty)" class="error-block">
+        <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()" class="main-form">
+            <div class="form-inputs-group">
+                <div class="form-input-group">
+                    <input id="username" placeholder="Username" class="form-input" type="text"
+                        [class.is-invalid]="userRegistrationForm.get('email').invalid && userRegistrationForm.get('email').touched"
+                        formControlName="username">
+                    <div *ngIf="(userRegistrationForm.get('username').invalid && userRegistrationForm.get('username').touched) || 
+                                 userRegistrationForm.get('username').dirty" class="error-block">
                         <small *ngIf="userRegistrationForm.get('username').errors?.required"
                             class="text-danger">Username is required</small>
                         <small *ngIf="userRegistrationForm.get('username').errors?.['firstLetterCapital']"
@@ -21,12 +20,14 @@
                         <small *ngIf="userRegistrationForm.get('username').errors?.pattern" class="text-danger">
                             Only letters allowed!
                         </small>
+
+                        <small *ngIf="userRegistrationForm.get('username').errors?.maxlength" class="text-danger">
+                            Name is too long!
+                        </small>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" class="form-control" type="email" formControlName="email">
+                <div class="form-input-group email">
+                    <input placeholder="Email" class="form-input" type="email" formControlName="email">
                     <div *ngIf="
                              userRegistrationForm.get('email').invalid && 
                             (userRegistrationForm.get('email').touched || 
@@ -37,11 +38,14 @@
                         <small class="text-danger" *ngIf="userRegistrationForm.get('email').errors?.pattern">
                             Email address is invalid
                         </small>
+                        <small *ngIf="userRegistrationForm.get('email').errors?.maxlength" class="text-danger">
+                            Email is too long!
+                        </small>
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!userRegistrationForm.valid">Submit</button>
+            <button type="submit" class="submit-btn" [disabled]="!userRegistrationForm.valid">Submit</button>
         </form>
-        <app-result [formData]="formData" class="form-group"></app-result>
+        <app-result [emptyMessageStatus]="emptyMessageStatus" [formData]="formData" class="form-group"></app-result>
     </div>
 </div>

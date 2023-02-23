@@ -1,37 +1,69 @@
-<ul class="list-group">
-    <li class="list-group-item disabled">
-        <p>Output Result</p>
-        <input type="text" class="form-control" placeholder="Searching" [(ngModel)]="searchedData">
-    </li>
-    <li class="item-list-element" *ngFor="let userData of formData | search:searchedData; let i = index">
+<div class="main-form">
+    <div class="result-header-container">
+        <h4 class="result-header">Result List</h4>
+        <input class="searching-input" type="text" placeholder="Searching" [(ngModel)]="searchedData">
+    </div>
+    <div class="no-element-message">
+        <p *ngIf="(formData | search:searchedData).length === 0  && !emptyMessageStatus ">No elements Found!</p>
+        <p *ngIf="(formData).length === 0 ">Please add some elements!</p>
+    </div>
+    <div *ngFor="let userData of formData | search:searchedData; let i = index">
 
-        <div class="list-group-item" *ngIf="i !== editIndex">
-            <div>
+        <div class="list-element-form" *ngIf="i !== editIndex">
+            <div class="info-container">
                 <p> Username : {{userData.username}}</p>
                 <p> Email : {{userData.email}}</p>
             </div>
-            <div>
-                <button type="button" class="btn btn-success result-control-btn" (click)="onEdit(i)">Edit</button>
-                <button type="button" class="btn btn-danger result-control-btn" (click)="onDelete(i)">Delete</button>
+            <div class="btn-container">
+                <button type="button" class="edit-btn" (click)="onEdit(i)">Edit</button>
+                <button type="button" class='delete-btn' (click)="onDelete(i)">Delete</button>
             </div>
         </div>
+        <form [formGroup]="userEditForm" class="list-element-form-edit" *ngIf="i === editIndex">
+            <div class="edit-inputs-container ">
+                <div class="edit-input-container">
+                    <label for="username">Full Name</label>
+                    <input type="text" formControlName="username" class="editing-input">
+                    <div *ngIf="(userEditForm.get('username').invalid && userEditForm.get('username').touched) || 
+                userEditForm.get('username').dirty">
+                        <small *ngIf="userEditForm.get('username').errors?.required" class="text-danger">Username is
+                            required</small>
+                        <small *ngIf="userEditForm.get('username').errors?.['firstLetterCapital']" class="text-danger">
+                            First letter should be uppercase!
+                        </small>
+                        <small *ngIf="userEditForm.get('username').errors?.pattern" class="text-danger">
+                            Only letters allowed!
+                        </small>
 
-        <div class="list-group-item" *ngIf="i === editIndex">
-            <div class="edit-input-container ">
-                <div>
-                    <label for="username">Username</label>
-                    <input id="username" type="text" class="form-control" [(ngModel)]="editUserData.username">
+                        <small *ngIf="userEditForm.get('username').errors?.maxlength" class="text-danger">
+                            Name is too long!
+                        </small>
+                    </div>
+                </div>
+                <div class="edit-input-container">
+                    <label for="username">User Email</label>
+                    <input type="text" formControlName="email" class="editing-input">
+                    <div *ngIf="
+                    userEditForm.get('email').invalid && 
+                            (userEditForm.get('email').touched || 
+                            userEditForm.get('email').dirty)" class="error-block">
+                        <small class="text-danger" *ngIf="userEditForm.get('email').errors?.required">
+                            Email address is required
+                        </small>
+                        <small class="text-danger" *ngIf="userEditForm.get('email').errors?.pattern">
+                            Email address is invalid
+                        </small>
+                        <small *ngIf="userEditForm.get('email').errors?.maxlength" class="text-danger">
+                            Email is too long!
+                        </small>
+                    </div>
                 </div>
             </div>
-            <div>
-                <label for="username">Email</label>
-                <input type="text" class="form-control" [(ngModel)]="editUserData.email">
+            <div class="btn-container-edit">
+                <button type="submit" class="save-btn" [disabled]="userEditForm.invalid"
+                    (click)="onSave(i)">Save</button>
+                <button type="button" class='cancel-btn' (click)="onReturn()">Cancel</button>
             </div>
-            <div>
-                <button type="submit" class="btn btn-success result-control-btn" (click)="onSave(i)">Save</button>
-                <button type="button" class="btn btn-danger result-control-btn" (click)="onReturn()">Cancel</button>
-            </div>
-        </div>
-
-    </li>
-</ul>
+        </form>
+    </div>
+</div>

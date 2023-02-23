@@ -1,9 +1,85 @@
-input.ng-invalid {
-  border: 1px solid red;
+.main-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  margin-right: 30px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 5px 11.2px 2.8px rgb(136 140 133 / 12%);
+  margin: 20px auto;
 }
 
-.error-block
-{
+.form-input {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  min-width: 260px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #757575;
+}
+
+.form-inputs-group {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit-btn {
+  margin: 0 20px;
+  text-decoration: none;
+  color: rgb(27, 151, 186);
+  border: 1.8px solid rgb(27, 151, 186);
+  background-color: transparent;
+  padding: 8px 24px;
+  border-radius: 9px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.error-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.email {
+  margin-bottom: 20px;
+}
+
+.form-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 670px) {
+  .main-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .form-inputs-group {
+    margin: 10px 0;
+  }
+}
+
+@media screen and (min-width: 991px) {
+  .main-form {
     display: flex;
     flex-direction: column;
+  }
+
+  .form-inputs-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 20px 20px;
+  }
+
+  .form-input-group {
+    display: flex;
+    margin: 0 50px;
+  }
 }

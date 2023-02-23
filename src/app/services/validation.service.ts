@@ -7,12 +7,13 @@ import { FormControl } from '@angular/forms';
 export class ValidationService {
   
   firstLetterCapital(input: FormControl) {
-    if (input.value.charAt(0) === input.value.charAt(0).toLowerCase()) {
+    if (input.value && input.value.charAt(0) === input.value.charAt(0).toLowerCase()) {
       return { firstLetterCapital: true }
     }
     else {
       return null
     }
   }
+  
   
 }
